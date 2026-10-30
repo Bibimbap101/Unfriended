@@ -69,9 +69,12 @@ function draw() {
     open: f => !S.dec[f.name],
     remove: f => S.dec[f.name] === 'remove',
   }[view.filter];
-  const L = F.filter(keep).sort(view.sort === 'old'
+  const by = view.sort === 'old'
     ? (a, b) => (a.since ?? Infinity) - (b.since ?? Infinity)
-    : (a, b) => (a.last || 0) - (b.last || 0));
+    : (a, b) => (a.last || 0) - (b.last || 0);
+  // friends with an Open profile link go first, then the chosen sort
+  const linkedFirst = f => S.pics[f.name]?.url ? 0 : 1;
+  const L = F.filter(keep).sort((a, b) => linkedFirst(a) - linkedFirst(b) || by(a, b));
 
   const chip = (k, t) => `<button class="chip" data-act="filter" data-k="${k}" aria-pressed="${view.filter === k}">${t}</button>`;
   let h = `<div class="stats">
