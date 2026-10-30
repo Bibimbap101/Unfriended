@@ -4,7 +4,7 @@ function fixText(s) {
 }
 
 // files: [{ path, json }] from the unzipped Facebook download (JSON format).
-// Returns [{ name, since, last }] with times in ms; last is null if you never chatted.
+// Returns [{ name, since, last }] with times in ms; last is null if you never chatted, since is null if Facebook left the date out.
 function parseExport(files) {
   const last = {};
   const bump = (name, ms) => {
@@ -14,7 +14,7 @@ function parseExport(files) {
   let friends = [];
   for (const { path, json } of files) {
     if (/your_friends\.json$/.test(path)) {
-      friends = (json.friends_v2 || json.friends || []).map(f => ({ name: fixText(f.name), since: f.timestamp * 1000 }));
+      friends = (json.friends_v2 || json.friends || []).map(f => ({ name: fixText(f.name), since: f.timestamp ? f.timestamp * 1000 : null }));
     } else if (/messages\/[^/]+\/[^/]+\/message_\d+\.json$/.test(path)) {
       const msgs = json.messages || [];
       const newest = msgs.reduce((m, x) => Math.max(m, x.timestamp_ms || 0), 0);

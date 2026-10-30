@@ -20,4 +20,7 @@ assert.deepStrictEqual(out, [
   { name: 'Ana', since: 1300000000000, last: 5 },
   { name: 'Ben', since: 1200000000000, last: null },
 ]);
+
+// some downloads leave every friend date empty
+assert.strictEqual(parseExport([{ path: 'your_friends.json', json: { friends_v2: [{ name: 'Cy', timestamp: null }] } }])[0].since, null);
 console.log('ok');

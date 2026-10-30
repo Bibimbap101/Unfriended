@@ -61,7 +61,7 @@ function draw() {
     remove: f => S.dec[f.name] === 'remove',
   }[view.filter];
   const L = F.filter(keep).sort(view.sort === 'old'
-    ? (a, b) => a.since - b.since
+    ? (a, b) => (a.since ?? Infinity) - (b.since ?? Infinity)
     : (a, b) => (a.last || 0) - (b.last || 0));
 
   const chip = (k, t) => `<button class="chip" data-act="filter" data-k="${k}" aria-pressed="${view.filter === k}">${t}</button>`;
@@ -70,8 +70,14 @@ function draw() {
     <div class="stat"><b>${F.filter(quiet).length}</b><span class="muted">Quiet 3+ years</span></div>
     <div class="stat"><b>${rem.length}</b><span class="muted">On remove list</span></div>
     <div class="stat"><b>${rem.filter(f => S.done[f.name]).length}</b><span class="muted">Unfriended</span></div>
-  </div>
-  <div class="tools">
+  </div>`;
+  // Facebook's download has no profile links; the friends page fills them in as you scroll it.
+  const linked = F.filter(f => S.pics[f.name]?.url).length;
+  if (linked < F.length) {
+    h += `<div class="links"><span><b>${linked} of ${F.length}</b> friends have profile links. Open your friends page and scroll to the bottom to get the rest.</span>
+      <a class="btn" href="https://www.facebook.com/friends/list" target="_blank" rel="noopener">Open friends page</a></div>`;
+  }
+  h += `<div class="tools">
     ${chip('quiet', 'Quiet 3+ years')}${chip('open', 'Not decided')}${chip('remove', 'Remove list')}${chip('all', 'All')}
     <select data-act="sort" aria-label="Sort friends">
       <option value="quiet" ${view.sort === 'quiet' ? 'selected' : ''}>Longest silence first</option>
@@ -90,7 +96,7 @@ function draw() {
     h += `<div class="row ${done ? 'done' : ''}">
       <div class="av" aria-hidden="true">${esc(ini(f.name))}${pic?.img ? `<img src="${esc(pic.img)}" alt="">` : ''}</div>
       <div class="who"><div class="name">${n}</div>
-        <div class="muted">Friends since ${new Date(f.since).getFullYear()}, ${ago(f.last)}</div></div>
+        <div class="muted">Friends since ${f.since ? new Date(f.since).getFullYear() : 'unknown'},${ago(f.last)}</div></div>
       <span class="pill ${quiet(f) ? 'quiet' : 'talk'}">${quiet(f) ? 'Quiet' : 'Talking'}</span>
       ${d === 'remove' && view.filter === 'remove'
         ? `<label class="tick"><input type="checkbox" data-act="done" data-n="${n}" ${done ? 'checked' : ''}> Unfriended</label>`
