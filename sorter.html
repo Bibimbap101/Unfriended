@@ -28,6 +28,11 @@
   #load { margin: 24px 0; border: 1.5px dashed var(--line); border-radius: 12px; padding: 32px 16px; text-align: center; background: var(--card); }
   #load.small { padding: 12px 16px; text-align: left; display: flex; align-items: center; gap: 12px; }
   #load.small .big { display: none; }
+  h1 { display: flex; align-items: center; gap: 10px; }
+  #clear { display: none; margin-left: auto; }
+  #load.small #clear { display: block; }
+  .danger { color: var(--bad); }
+  .danger:hover { border-color: var(--bad); }
   .pick { display: inline-block; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; background: var(--bg); }
   .pick input { position: absolute; opacity: 0; width: 1px; }
   #err { color: var(--bad); font-size: 13px; margin: 8px 0 0; }
@@ -61,7 +66,7 @@
 </head>
 <body>
 <main>
-  <h1>Unfriended</h1>
+  <h1><img src="icons/icon.svg" alt="" width="32" height="32">Unfriended</h1>
   <p class="muted">Sort your friends by how long you've been quiet. Everything stays on this computer.</p>
 
   <div id="load">
@@ -69,6 +74,7 @@
     <p class="big muted" style="margin:0 0 16px">Download it as JSON with Friends and Messages ticked, then unzip it.</p>
     <label class="pick">Choose folder<input id="pick" type="file" webkitdirectory></label>
     <span id="status" class="muted"></span>
+    <button id="clear" class="danger">Clear all</button>
     <p id="err" role="alert"></p>
   </div>
 

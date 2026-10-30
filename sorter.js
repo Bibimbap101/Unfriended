@@ -43,8 +43,17 @@ $('#pick').addEventListener('change', async e => {
     return;
   }
   $('#err').textContent = '';
+  e.target.value = ''; // so picking the same folder again still fires "change"
   S.friends = friends;
   chrome.storage.local.set({ friends });
+  draw();
+});
+
+$('#clear').addEventListener('click', () => {
+  if (!confirm('Clear everything? Your friends, picks, links and photos will be removed from this browser.')) return;
+  chrome.storage.local.clear();
+  S = { friends: [], dec: {}, done: {}, pics: {} };
+  view.filter = 'quiet';
   draw();
 });
 
@@ -83,6 +92,7 @@ function draw() {
       <option value="quiet" ${view.sort === 'quiet' ? 'selected' : ''}>Longest silence first</option>
       <option value="old" ${view.sort === 'old' ? 'selected' : ''}>Oldest friends first</option>
     </select>
+    ${view.filter === 'remove' && rem.length ? '<button data-act="clearRemove">Clear remove list</button>' : ''}
   </div>`;
 
   if (!L.length) {
@@ -119,6 +129,12 @@ $('#main').addEventListener('click', e => {
   if (a === 'filter') view.filter = t.dataset.k;
   else if (a === 'dec') { S.dec[n] = S.dec[n] === t.dataset.d ? undefined : t.dataset.d; save(); }
   else if (a === 'done') { S.done[n] = t.checked; save(); }
+  else if (a === 'clearRemove') {
+    const rem = Object.keys(S.dec).filter(k => S.dec[k] === 'remove');
+    if (!confirm(`Clear your remove list? ${rem.length} friends go back to Not decided.`)) return;
+    rem.forEach(k => { delete S.dec[k]; delete S.done[k]; });
+    save();
+  }
   else return;
   draw();
 });

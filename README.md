@@ -1,6 +1,8 @@
 <div align="center">
 
-# 👋 Unfriended
+<img src="icons/icon.svg" alt="Unfriended logo" width="120" height="120">
+
+# Unfriended
 
 **Clean up your Facebook friend list, the calm way.**
 
@@ -61,6 +63,8 @@ Sort your friends by how long you've been quiet. Then Facebook's own friend list
 5. When the button changes to **Add friend**, the add-on ticks them off. If it misses one, tick it in the panel at the bottom right.
 6. **Show everyone** in that panel turns the filter off.
 
+**Starting over?** On the **Remove list** tab, **Clear remove list** sends everyone back to "Not decided". **Clear all** (top right) wipes everything so you can load a different folder.
+
 ---
 
 ## ⚠️ Limits
@@ -79,6 +83,7 @@ Sort your friends by how long you've been quiet. Then Facebook's own friend list
 | `sorter.html` / `sorter.js` | The sorter page |
 | `parse.js` | Reads your Facebook data download |
 | `content.js` / `content.css` | Filters and highlights Facebook's friend list |
+| `icons/` | The logo, as SVG and toolbar PNGs |
 | `parse.test.js` | Tests for `parse.js` (not in the zip) |
 
 <div align="center">
