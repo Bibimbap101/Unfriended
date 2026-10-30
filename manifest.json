@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Unfriended",
+  "version": "1.0",
+  "description": "Sort your Facebook friends by how long you've been quiet, then filter Facebook's friend list down to the ones you want to remove.",
+  "permissions": ["storage"],
+  "action": { "default_title": "Open Unfriended" },
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ]
+}
