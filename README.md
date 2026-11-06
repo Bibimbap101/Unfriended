@@ -8,7 +8,7 @@
 
 Sort your friends by how long you've been quiet. Then Facebook's own friend list shows only the people you picked.
 
-[![Download](https://img.shields.io/badge/⬇_Download-Unfriended.zip-1877F2?style=for-the-badge)](https://github.com/Bibimbap67/Unfriended/releases/latest/download/Unfriended.zip)
+[![Download](https://img.shields.io/badge/⬇_Download-Unfriended.zip-1877F2?style=for-the-badge)](https://github.com/Bibimbap101/Unfriended/releases/latest/download/Unfriended.zip)
 
 ![Version](https://img.shields.io/badge/version-1.0-informational?style=flat-square)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-34A853?style=flat-square&logo=googlechrome&logoColor=white)
@@ -22,7 +22,7 @@ Sort your friends by how long you've been quiet. Then Facebook's own friend list
 
 ## ⚡ Quick install (2 minutes)
 
-1. **[⬇ Download Unfriended.zip](https://github.com/Bibimbap67/Unfriended/releases/latest/download/Unfriended.zip)**
+1. **[⬇ Download Unfriended.zip](https://github.com/Bibimbap101/Unfriended/releases/latest/download/Unfriended.zip)**
 2. Right-click the zip → **Extract All**. You get an `Unfriended` folder.
 3. Open `brave://extensions` (or `chrome://extensions`).
 4. Turn on **Developer mode** (top right).
