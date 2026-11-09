@@ -256,12 +256,14 @@ async function autoLoad() {
   while (loading && still < 6) {
     let end;
     if (scan) {
-      // every friend card has a "More options for <name>" button next to their profile link
+      // every friend card has a "More options for <name>" button next to a link with that name;
+      // other buttons like "More options for album" (the Photos section) have no such link, so they're skipped
       for (const b of document.querySelectorAll('[aria-label^="More options for "]')) {
+        const name = b.getAttribute('aria-label').slice(17).trim();
         let card = b, a;
-        for (let i = 0; i < 8 && card && !(a = card.querySelector('a[role="link"]')); i++) card = card.parentElement;
+        for (let i = 0; i < 8 && card && !(a = [...card.querySelectorAll('a[role="link"]')].find(x => nameOf(x) === name)); i++) card = card.parentElement;
         const pic = a && readPic(a, card);
-        if (pic && !found.has(pic.url)) found.set(pic.url, { name: b.getAttribute('aria-label').slice(17).trim(), img: pic.img });
+        if (pic && !found.has(pic.url)) found.set(pic.url, { name, img: pic.img });
         end = b;
       }
     } else {
